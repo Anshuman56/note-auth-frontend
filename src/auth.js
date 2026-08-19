@@ -9,3 +9,5 @@ function setToken(t) {
 function clearToken() {
   localStorage.removeItem("token");
 }
+
+export { setToken, getToken, clearToken };
