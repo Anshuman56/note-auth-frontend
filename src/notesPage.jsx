@@ -50,6 +50,7 @@ export default function NotesPase() {
       });
       setNotes(data);
       setNote("");
+      setError(null);
     } catch (err) {
       console.log(err.message);
     }
@@ -71,6 +72,29 @@ export default function NotesPase() {
   function handleEdit(item) {
     setEditingId(item._id);
     setEditNote(item.title);
+  }
+  function handleCancel() {
+    setEditingId(null);
+    setEditNote("");
+    setError(null);
+  }
+  async function handleSave(id) {
+    if (editNote.trim() === "") {
+      setError("Note cannot be empty");
+      return;
+    }
+    try {
+      const data = await apiFetch(`/notes/${id}`, {
+        method: "put",
+        body: JSON.stringify({ note: editNote }),
+      });
+      setNotes(data);
+      setEditingId(null);
+      setEditNote("");
+      setError(null);
+    } catch (err) {
+      console.error(err.message);
+    }
   }
   return (
     <div className="max-w-2xl mx-auto p-4">
@@ -123,6 +147,20 @@ export default function NotesPase() {
                         value={editNote}
                         onChange={(e) => setEditNote(e.target.value)}
                       ></textarea>
+                      <div className="flex justify-end gap-2 mt-2">
+                        <button
+                          className="px-3 py-2 bg-blue-600 text-white rounded cursor-pointer"
+                          onClick={() => handleSave(item._id)}
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="px-3 py-2 border rounded cursor-pointer"
+                          onClick={handleCancel}
+                        >
+                          Cancel
+                        </button>
+                      </div>
                     </>
                   ) : (
                     <>
