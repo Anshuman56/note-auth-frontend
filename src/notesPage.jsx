@@ -7,6 +7,7 @@ export default function NotesPase() {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [note, setNote] = useState("");
   const navigator = useNavigate();
   useEffect(() => {
     async function feachNotes() {
@@ -34,6 +35,23 @@ export default function NotesPase() {
     clearToken();
     navigator("/login");
   }
+
+  async function handleAddNote() {
+    if (note.trim() === "") {
+      setError("Input field empty");
+      return;
+    }
+    try {
+      const data = await apiFetch("/notes", {
+        method: "post",
+        body: JSON.stringify({ note }),
+      });
+      setNotes(data);
+      setNote("");
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
   return (
     <div className="max-w-2xl mx-auto p-4">
       <div className="flex justify-between items-center w-full mb-5">
@@ -45,8 +63,26 @@ export default function NotesPase() {
           Logout
         </button>
       </div>
+      <div className=" flex gap-2 items-end mb-2">
+        <label htmlFor="note" className="flex-1">
+          Note
+          <textarea
+            className="w-full p-3 border rounded resize-none"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            name=""
+            id=""
+          ></textarea>
+        </label>
+        <button
+          className=" py-6.5 px-3 mb-1 bg-blue-600 text-white rounded hover:bg-blue-800 cursor-pointer"
+          onClick={handleAddNote}
+        >
+          Add note
+        </button>
+      </div>
       {loading && <h2>loading...</h2>}
-      {error && <h2>{error}</h2>}
+      {error && <h2 className="text-red-400">{error}</h2>}
       {notes && (
         <div>
           {notes.length === 0 ? (
