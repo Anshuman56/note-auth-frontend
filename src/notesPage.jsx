@@ -8,6 +8,8 @@ export default function NotesPase() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [note, setNote] = useState("");
+  const [editingId, setEditingId] = useState(null);
+  const [editNote, setEditNote] = useState("");
   const navigator = useNavigate();
   useEffect(() => {
     async function feachNotes() {
@@ -66,6 +68,10 @@ export default function NotesPase() {
       }
     }
   }
+  function handleEdit(item) {
+    setEditingId(item._id);
+    setEditNote(item.title);
+  }
   return (
     <div className="max-w-2xl mx-auto p-4">
       <div className="flex justify-between items-center w-full mb-5">
@@ -108,17 +114,37 @@ export default function NotesPase() {
                   className="bg-white border rounded p-4 mb-3 text-base"
                   key={item._id}
                 >
-                  {item.title}
-                  <br />
-                  <span className="text-xs text-gray-500 mt-2">
-                    {item.createdAt}
-                  </span>
-                  <button
-                    className="text-xs ml-2 cursor-pointer text-red-600 hover:text-red-800"
-                    onClick={() => handleDelet(item._id)}
-                  >
-                    Delete
-                  </button>
+                  {editingId === item._id ? (
+                    <>
+                      <textarea
+                        name=""
+                        id=""
+                        className="w-full p-3 border rounded resize-none"
+                        value={editNote}
+                        onChange={(e) => setEditNote(e.target.value)}
+                      ></textarea>
+                    </>
+                  ) : (
+                    <>
+                      {item.title}
+                      <br />
+                      <span className="text-xs text-gray-500 mt-2">
+                        {item.createdAt}
+                      </span>
+                      <button
+                        className="text-xs ml-2 cursor-pointer text-red-600 hover:text-red-800"
+                        onClick={() => handleDelet(item._id)}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        className="text-xs ml-2 cursor-pointer text-blue-600 hover:text-blue-800"
+                        onClick={() => handleEdit(item)}
+                      >
+                        Edit
+                      </button>
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
