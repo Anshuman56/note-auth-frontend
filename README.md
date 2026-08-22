@@ -1,16 +1,34 @@
-# React + Vite
+# Note Auth FrontEnd
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+You can register, log in, create notes, delete notes, and edit notes.
 
-Currently, two official plugins are available:
+[Live Demo](https://note-auth-frontend.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Screenshot](001.png "Screenshot")
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Create and store notes for the logged-in user.
+- Delete your notes, create new notes, and edit existing notes.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Built with React and Tailwind CSS.
+
+## What I Learned
+
+I learned how modern websites work, from the front end to the back end.
+
+## How to Run It Locally
+
+```bash
+git clone https://github.com/Anshuman56/note-auth-frontend
+cd note-auth-frontend
+npm install
+create the .env file similar to .env.example
+node server.js
+```
+
+## Backend code
+
+https://github.com/Anshuman56/note-auth-api
