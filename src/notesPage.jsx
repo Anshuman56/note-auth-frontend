@@ -101,7 +101,7 @@ export default function NotesPase() {
       <div className="flex justify-between items-center w-full mb-5">
         <h1 className="text-2xl font-semibold">My Notes</h1>
         <button
-          className=" text-sm text-gray-600 hover:text-gray-900"
+          className=" text-sm text-gray-600 hover:text-gray-900  cursor-pointer"
           onClick={handleLogout}
         >
           Logout
